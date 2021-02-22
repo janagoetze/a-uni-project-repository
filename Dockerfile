@@ -1,26 +1,18 @@
 # Dockerfile for running commandline python code
 # build it using
 # docker build -t a-uni-project --rm .
-# run it using
-# docker run -it --name homework_solution --rm a-uni-project
-# then the code can be called, e.g. python demo.py
+# run for different commands using
+# docker run -it -v `pwd`:/usr/src/app -w /usr/src/app a-uni-project python demo.py
+# and
+# docker run -it -v `pwd`:/usr/src/app -w /usr/src/app a-uni-project python main.py
+# where python demo.py can be replaced by whatever your code documents
 
 # set base image (host OS)
 FROM python:3.8-slim
 
-# an arbitrary app user
-RUN useradd --create-home --shell /bin/bash app_user
-
-# set the working directory in the container
-WORKDIR /home/app_user
-
 # install requirements here if needed
-
-# change user
-USER app_user
+RUN pip install spacy
+RUN python -m spacy download en_core_web_sm
 
 # copy the content of the local src directory to the working directory
 COPY . .
-
-# for commandline usage of code
-CMD ["bash"]

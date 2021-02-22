@@ -1,6 +1,8 @@
 '''Demo calls for a-uni-project'''
 
 from nlp.processing import NLP
+import spacy
+import os
 
 
 def demo():
@@ -46,3 +48,9 @@ def demo():
 
 if __name__ == '__main__':
     demo()
+
+    # this should create a folder and file in your local directory
+    if not os.path.exists('DATA'):
+        os.makedirs('DATA')
+    with open('DATA/docker_test.log', 'w') as outfile:
+        outfile.write("Let's see if this works as intended.")
